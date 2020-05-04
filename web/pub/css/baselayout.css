@@ -1,0 +1,88 @@
+a, a:hover, a:active, a:visited {
+	text-decoration: inherit;
+	color: inherit;
+	outline: none;
+}
+
+#content a, footer a,
+#content a:hover, footer a:hover {
+	color: rgb(120, 120, 255);
+}
+
+#content a:hover, footer a:hover {
+	text-decoration: underline;
+}
+
+header {
+	padding-right: 4em;
+}
+
+header a, nav a {
+	padding: 0.2em;
+}
+
+header a {
+	font-size: 2.6em;
+	font-weight: bold;
+}
+nav a {
+	font-size: 2em;
+
+	padding-left: 0.5em;
+	padding-right: 1.5em;
+	line-height: 0.2em;
+
+	border-left: 1px solid rgb(200, 200, 200);
+}
+
+nav a:hover {
+	border-left-color: rgb(160, 160, 255);
+}
+
+/* structural */
+body {
+	width: 80%;
+	min-width: 40em;
+	margin: auto;
+}
+
+#header {
+	width: 100%;
+	margin: 0 auto 1.2em auto;
+	display: table;
+}
+
+#header > * {
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+}
+
+#header header {
+	width: 0;
+}
+
+#header:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+header a, nav a {
+	display: table-cell;
+}
+
+#content {
+	width: 80%;
+	margin: auto;
+}
+
+#content h1 {
+	text-align: center;
+}
+
+footer {
+	width: 100%;
+	text-align: center;
+	margin-top: 1.2em;
+}

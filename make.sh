@@ -54,7 +54,7 @@ recurse() {
 	done
 }
 
-inp="$(dirname "$0")/pub"
+inp="$(dirname "$0")/web/pub"
 recurse "$inp" "$output_folder"
 
 nophp="$inp/.nophp"

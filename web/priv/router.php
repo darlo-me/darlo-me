@@ -57,6 +57,7 @@ function get_controller_from_request_page($page) {
         '/index.html.php'    => 'controllers/index.php',
         '/projects.html.php' => 'controllers/projects.php',
     ];
+    
     if(substr($page, 0, strlen('/blog-post/')) === '/blog-post/') {
         $controller = @include('controllers/blog.php');
         $controller->page = substr($page, strlen('/blog-post/'));
