@@ -20,6 +20,7 @@ OTHER_OBJ   := $(patsubst $(SRC)/%,$(DEST)/%,$(OTHER_FILES))
 
 ALL_OBJ   := $(PHP_OBJ) $(DIST_OBJ) $(OTHER_OBJ)
 
+.DELETE_ON_ERROR: 
 .PHONY: all clean
 
 all: $(DEST)
