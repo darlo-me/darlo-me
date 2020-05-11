@@ -53,7 +53,6 @@ function get_controller_from_request_page($page) {
     }
 
     $pages = [
-        '/about.html.php'    => 'controllers/about.php',
         '/index.html.php'    => 'controllers/index.php',
         '/projects.html.php' => 'controllers/projects.php',
         '/readings.html.php' => 'controllers/readings.php',

@@ -20,6 +20,9 @@ OTHER_OBJ   := $(patsubst $(SRC)/%,$(DEST)/%,$(OTHER_FILES))
 
 ALL_OBJ   := $(PHP_OBJ) $(DIST_OBJ) $(OTHER_OBJ)
 
+DIFF_OBJ := $(filter-out $(ALL_OBJ),$(shell find $(DEST) -type f))
+DIFF_FOLDERS := $(dir $(DIFF_OBJ))
+
 .DELETE_ON_ERROR: 
 .PHONY: all clean
 
@@ -28,7 +31,15 @@ all: $(DEST)
 clean:
 	rm -rf $(DEST)
 
+ifeq ($(DIFF_OBJ),)
 $(DEST): $(ALL_OBJ)
+else
+FORCE:
+
+$(DEST): $(ALL_OBJ) FORCE
+	rm -- $(DIFF_OBJ)
+	@for i in $(DIFF_FOLDERS); do if [ -z "$$(ls -A "$$i")" ]; then rmdir -v -- "$$i"; fi; done
+endif
 
 # rebuild everything everytime
 $(PHP_OBJ): $(DEST)/%: $(SRC)/%.php $(PHP_FILES)
