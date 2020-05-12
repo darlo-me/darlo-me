@@ -1,10 +1,12 @@
 <?php
+require_once('libs/Config.php');
+require_once('libs/Request.php');
 require_once('libs/books.php');
 require_once('libs/external/php2static/php/Module.php');
 
 return new class {
     public $page;
-    public function execute($request, $config) {
+    public function execute(Request $request, Config $config) {
         Module::setInputFolder('views/');
 
         $page = new Module('base/html');

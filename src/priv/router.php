@@ -9,7 +9,7 @@ require_once('libs/Request.php');
 function fatal_error_handler($errno, $errstr, $errfile, $errline) {
     throw new Exception("$errno: $errfile:$errline: $errstr");
 }
-#set_error_handler("fatal_error_handler");
+set_error_handler("fatal_error_handler");
 
 function extract_path(string $p) {
     if(($page = realpath(dirname($p))) === FALSE)
@@ -53,23 +53,23 @@ function get_controller_from_request_page($page) {
     }
 
     $pages = [
-        '/index.html.php'    => 'controllers/index.php',
+        '/index.html.php'    => 'controllers/posts.php',
         '/projects.html.php' => 'controllers/projects.php',
         '/readings.html.php' => 'controllers/readings.php',
     ];
-    
-    if(substr($page, 0, strlen('/blog-post/')) === '/blog-post/') {
-        $controller = @include('controllers/blog.php');
-        $controller->page = substr($page, strlen('/blog-post/'));
+
+    if(isset($pages[$page])) {
+        return include($pages[$page]);
+    } else if(substr($page, 0, strlen('/posts/')) === '/posts/') {
+        $controller = include('controllers/post.php');
+        $controller->page = substr($page, strlen('/posts/'));
         return $controller;
-    } else if(isset($pages[$page])) {
-        return @include($pages[$page]);
     } else {
         return '';
     }
 }
 
-$config  = new Config();
+$config  = new Config('conf/secrets.json');
 $request = new Request($_SERVER, $_FILES, $_POST, $_GET);
 unset($_SERVER, $_FILES, $_POST, $_GET);
 
@@ -78,7 +78,7 @@ try {
         $controller = get_controller_from_request_page($request->server['PHP_SELF']);
 
         if(!$controller) {
-            throw new HTTPException(404);
+            throw new HTTPException(500);
         }
 
         if(!sec_check_request($request, $config, $controller)) {
@@ -95,8 +95,8 @@ try {
     }
 } catch(HTTPException $e) {
     http_response_code($e->getCode());
-    if($e->getMessage()) {
-        echo $e->getMessage();
+    if($e->getPrevious()) {
+        echo $e->getPrevious()->getMessage();
     }
     exit(1);
 }

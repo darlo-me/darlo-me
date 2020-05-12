@@ -2,7 +2,7 @@
 $this->content->process();
 
 $this->css = $this->content->css ?? [];
-$this->css[] = 'css/baselayout.css';
+$this->css[] = '/css/baselayout.css';
 
 if (isset($this->content->title))
     $this->title = $this->content->title;
@@ -15,7 +15,7 @@ foreach(($this->content->js ?? []) as $j) {
         --><a href="/">darlo</a><!--
     --></header><!--
     --><nav><!--
-        --><a href="/blog-post/index.html">blog</a><!--
+        --><a href="/">blog</a><!--
         --><a href="/software.html">software</a><!--
         --><a href="/readings.html">readings</a><!--
     --></nav>
@@ -28,5 +28,5 @@ foreach(($this->content->js ?? []) as $j) {
     <?php printf('(2019%s)', date('Y') !== '2019' ? date('-Y') : ''); ?>
     Daryl Anthony Chouinard
     (<a href="mailto:daryl@darlo.me">email</a>)
-    (<a href='https://github.com/darlo'>github</a>)
+    (<a href='https://github.com/darlo-me'>github</a>)
 </footer>
