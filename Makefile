@@ -38,12 +38,12 @@ push: $(DEST)
 clean:
 	rm -rf $(DEST)
 
+FORCE:
+
 # we want to remove files than don't exist anymore
 ifeq ($(DIFF_OBJ),)
 $(DEST): $(ALL_OBJ)
 else
-FORCE:
-
 $(DEST): $(ALL_OBJ) FORCE
 	rm -- $(DIFF_OBJ)
 	@for i in $(DIFF_FOLDERS); do if [ -z "$$(ls -A "$$i")" ]; then rmdir -v -- "$$i"; fi; done
