@@ -28,11 +28,13 @@ DIFF_FOLDERS := $(dir $(DIFF_OBJ))
 
 all: push
 
+# https://github.com/tschaub/gh-pages/issues/213
 push: $(DEST)
 	cd build && \
+	echo 'darlo.me' > CNAME && \
 	git init && \
 	git add -A && \
-	git commit -m "build" && \
+	{ git commit -m "build" || true; } && \
 	git push -f --set-upstream https://github.com/darlo-me/darlo-me-static master
 
 clean:

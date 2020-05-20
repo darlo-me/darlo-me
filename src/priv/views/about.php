@@ -5,7 +5,7 @@
 <p>
     This website is just a front for my email and DNS I use.
     
-    I might, and probably will, use it to link to my projects or to random things I support.
+    I might, and probably will, use it to link to my projects or to random things I enjoy.
     This may range from anything software related, to philosophy, music, etc.
 </p>
 <p>
