@@ -6,6 +6,8 @@ require_once('libs/Exceptions.php');
 require_once('libs/Config.php');
 require_once('libs/Request.php');
 
+require_once('Module.php');
+
 function fatal_error_handler($errno, $errstr, $errfile, $errline) {
     throw new Exception("$errno: $errfile:$errline: $errstr" . PHP_EOL . print_r(array_reverse(debug_backtrace()), true) );
 }
@@ -46,12 +48,6 @@ function sec_check_request($request, $config, $controller) {
 }
 
 function get_controller_from_request_page($page) {
-    if(substr($page, 0, 1) !== '/') {
-        if(!($page = extract_path($page))) {
-            throw new \Exception("Cannot get path to PHP_SELF");
-        }
-    }
-
     $pages = [
         '/index.html.php'    => 'controllers/index.php',
         '/posts.html.php'    => 'controllers/posts.php',
@@ -61,14 +57,15 @@ function get_controller_from_request_page($page) {
     ];
 
     if(isset($pages[$page])) {
-        return include($pages[$page]);
+        $controller = include($pages[$page]);
     } else if(substr($page, 0, strlen('/posts/')) === '/posts/') {
         $controller = include('controllers/post.php');
         $controller->page = substr($page, strlen('/posts/'));
-        return $controller;
     } else {
         return '';
     }
+
+    return $controller;
 }
 
 $config  = new Config('conf/secrets.json');
@@ -77,7 +74,13 @@ unset($_SERVER, $_FILES, $_POST, $_GET);
 
 try {
     try {
-        $controller = get_controller_from_request_page($request->server['PHP_SELF']);
+        $currentPage = $request->server['PHP_SELF'];
+        if(substr($currentPage, 0, 1) !== '/') {
+            if(!($currentPage = extract_path($currentPage))) {
+                throw new \Exception("Cannot get path to PHP_SELF");
+            }
+        }
+        $controller = get_controller_from_request_page($currentPage);
 
         if(!$controller) {
             throw new HTTPException(500);
@@ -87,6 +90,9 @@ try {
             throw new HTTPException(403);
         }
 
+        Module::$globals = [ // Some variables that will be needed by most views
+            'currentPage' => $currentPage,
+        ];
         foreach($controller->execute($request, $config) as $data) {
             echo $data;
         }

@@ -2,11 +2,10 @@
 require_once('libs/Request.php');
 require_once('libs/Config.php');
 
-require_once('libs/external/dist/php2static/Module.php');
-
 require_once('libs/posts.php');
 require_once('quickfixes.php');
 
+require_once('Module.php');
 require_once('page.php');
 
 return new class() extends page {

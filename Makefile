@@ -20,7 +20,7 @@ OTHER_OBJ   := $(patsubst $(SRC)/%,$(DEST)/%,$(OTHER_FILES))
 
 ALL_OBJ   := $(PHP_OBJ) $(DIST_OBJ) $(OTHER_OBJ)
 
-DIFF_OBJ := $(filter-out $(ALL_OBJ),$(shell find $(DEST) -type f))
+DIFF_OBJ := $(filter-out $(ALL_OBJ),$(shell find $(DEST) -type f -not -path '$(DEST)/.git/*'))
 DIFF_FOLDERS := $(dir $(DIFF_OBJ))
 
 .DELETE_ON_ERROR: 
