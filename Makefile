@@ -50,7 +50,8 @@ $(DEST): $(ALL_OBJ) FORCE
 endif
 
 # rebuild everything everytime
-$(PHP_OBJ): $(DEST)/%: $(SRC)/%.php $(PHP_FILES)
+# the reason we add FORCE is because PHP_FILES does not contain private/included PHP files
+$(PHP_OBJ): $(DEST)/%: $(SRC)/%.php $(PHP_FILES) FORCE
 	@$(MKDIR) -p $(@D)
 	php $< > $@
 
