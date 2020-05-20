@@ -2,7 +2,7 @@
 require_once('libs/Request.php');
 require_once('libs/Config.php');
 
-require_once('libs/external/php2static/php/Module.php');
+require_once('libs/external/dist/php2static/Module.php');
 
 require_once('libs/posts.php');
 require_once('quickfixes.php');
