@@ -1,7 +1,7 @@
 <?php
 abstract class page {
-	abstract protected function applyMain(Request $request, Config $config, Module $html): void;
-	abstract public function main(Request $request, Config $config); // mixed: Module | array
+    abstract protected function applyMain(Request $request, Config $config, Module $html): void;
+    abstract public function main(Request $request, Config $config); // mixed: Module | array
     public function execute(Request $request, Config $config) {
         Module::setInputFolder('views/');
 
