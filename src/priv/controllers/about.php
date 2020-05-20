@@ -12,7 +12,6 @@ return new class() extends page {
     }
     public function main(Request $request, Config $config) {
         $main = new Module('about');
-        $main->rssFeed = '/rss.xml';
         return $main;
     }
 };

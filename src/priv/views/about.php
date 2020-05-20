@@ -10,5 +10,5 @@
 </p>
 <p>
     To follow me, you can add a bookmark and check periodically, or
-    you can subscribe to my <a rel="alternate" type="application/rss+xml" href="<?php echo htmlentities($this['rssFeed']); ?>">RSS feed</a>.
+    you can subscribe to my <a href="/rss.xml">RSS feed</a>.
 </p>
