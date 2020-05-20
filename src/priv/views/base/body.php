@@ -21,7 +21,7 @@ foreach(($this->content->js ?? []) as $j) {
     --></nav>
 </div>
 <div id="content">
-<?php echo pretty_print($this->content); ?>
+<?php echo $this->content; ?>
 </div>
 <footer>
     &copy;

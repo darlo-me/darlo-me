@@ -148,3 +148,11 @@ nav a:hover::before {
 nav a {
 	font-size: 2em;
 }
+
+details > summary {
+	margin-left: 0;
+	margin-top: 0.5em;
+}
+details > * {
+	margin-left: 0.4em;
+}

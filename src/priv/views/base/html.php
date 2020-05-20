@@ -13,9 +13,9 @@ if(isset($this->body->title)) {
 $this->head->process();
 ?><html>
 <head>
-<?php echo pretty_print($this->head); ?>
+<?php echo $this->head; ?>
 </head>
 <body>
-<?php echo pretty_print($this->body); ?>
+<?php echo $this->body; ?>
 </body>
 </html>

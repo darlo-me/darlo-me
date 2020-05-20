@@ -57,6 +57,7 @@ function get_controller_from_request_page($page) {
         '/posts.html.php'    => 'controllers/posts.php',
         '/projects.html.php' => 'controllers/projects.php',
         '/readings.html.php' => 'controllers/readings.php',
+        '/software.html.php' => 'controllers/software.php',
     ];
 
     if(isset($pages[$page])) {
