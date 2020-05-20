@@ -1,10 +1,9 @@
 <?php
 require_once('viewUtils.php');
-
+?>
+<h1>Blog posts:</h1>
+<?php
 if($this->posts) {
-    ?>
-    <h1>Blog posts:</h1>
-    <?php
     foreach($this->posts as $post) {
         ?>
         <a href='<?php echo htmlentities(toLink($post->url, $this->currentPage)); ?>'>
@@ -19,6 +18,6 @@ if($this->posts) {
     }
 } else {
     ?>
-    <p class='empty'>There are no posts right now</p>
+    <p class='empty'>There are no posts right now.</p>
     <?php
 }
