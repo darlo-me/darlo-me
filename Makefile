@@ -24,9 +24,16 @@ DIFF_OBJ := $(filter-out $(ALL_OBJ),$(shell find $(DEST) -type f))
 DIFF_FOLDERS := $(dir $(DIFF_OBJ))
 
 .DELETE_ON_ERROR: 
-.PHONY: all clean
+.PHONY: all push clean
 
-all: $(DEST)
+all: push
+
+push: $(DEST)
+	cd build && \
+	git init && \
+	git add -A && \
+	git commit -m "build" && \
+	git push -f --set-upstream https://github.com/darlo-me/darlo-me-static master
 
 clean:
 	rm -rf $(DEST)
