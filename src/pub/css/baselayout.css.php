@@ -32,9 +32,11 @@ body > #header {
 		flex-wrap: wrap;
 }
 
+/* We hack a dummy block that prevents both his sliblings from growing past 15em */
 body > #header:after {
     content: "";
     flex-grow: 999;
+		width: 15em;
 }
 
 body > #header > header {
