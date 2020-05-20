@@ -1,5 +1,4 @@
 <?php
-$this->css = ['css/blog-post.css'];
 if($this->posts) {
     ?>
     <h1>Blog posts:</h1>

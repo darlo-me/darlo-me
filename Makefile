@@ -31,6 +31,7 @@ all: $(DEST)
 clean:
 	rm -rf $(DEST)
 
+# we want to remove files than don't exist anymore
 ifeq ($(DIFF_OBJ),)
 $(DEST): $(ALL_OBJ)
 else
