@@ -28,16 +28,25 @@ body > #content {
 body > #header {
     display: flex;
     align-items: center;
+
+		flex-wrap: wrap;
+}
+
+body > #header:after {
+    content: "";
+    flex-grow: 999;
 }
 
 body > #header > header {
     text-align: center;
+		flex-grow: 1;
 }
 
 body > #header > nav {
     display: flex;
     align-items: center;
     justify-content: center;
+		flex-grow: 99;
 }
 
 body > #header > nav > * {
@@ -79,7 +88,7 @@ body > footer {
 /* styling */
 
 html {
-    font-size: 1.7em;
+    font-size: 1.5em;
     font-family: monospace;
 }
 
