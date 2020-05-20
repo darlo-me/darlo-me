@@ -15,7 +15,7 @@ foreach(($this->content->js ?? []) as $j) {
         --><a href="/">darlo</a><!--
     --></header><!--
     --><nav><!--
-        --><a href="/">blog</a><!--
+        --><a href="/posts.html">posts</a><!--
         --><a href="/software.html">software</a><!--
         --><a href="/readings.html">readings</a><!--
     --></nav>

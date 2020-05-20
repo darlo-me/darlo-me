@@ -1,27 +1,26 @@
 <?php
 require_once('libs/Request.php');
 require_once('libs/Config.php');
+
 require_once('libs/external/php2static/php/Module.php');
 
-return new class {
-    public $page;
-    public function execute(Request $request, Config $config) {
-        if(!$this->page || basename($this->page) != $this->page) {
-            throw new HTTPException(400);
-        }
-        Module::setInputFolder('views/');
+require_once('libs/posts.php');
+require_once('quickfixes.php');
 
-        $page = new Module('base/html');
-        $page->head = new Module('base/head');
-        $page->body = new Module('base/body');
-        $page->body->content = new Module("posts/{$this->page}");
+require_once('page.php');
 
-        try {
-            $page->process();
-        } catch(Exception $e) {
-            throw new HTTPException(404, $e);
-        }
-
-        yield (string)$page;
+return new class() extends page {
+    protected function applyMain(Request $request, Config $config, Module $html): void {
+        $main = $this->main($request, $config);
+        $html->head->title = $main['post']->title;
+        $html->body->content = $main['module'];
+    }
+    public function main(Request $request, Config $config) {
+        $post = postFix(new post(get_include_path() . "/views/posts/{$this->page}"));
+        $main = new Module("posts/{$this->page}");
+        return [
+            'post' => $post,
+            'module' => $main,
+        ];
     }
 };

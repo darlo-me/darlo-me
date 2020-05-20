@@ -7,7 +7,7 @@ require_once('libs/Config.php');
 require_once('libs/Request.php');
 
 function fatal_error_handler($errno, $errstr, $errfile, $errline) {
-    throw new Exception("$errno: $errfile:$errline: $errstr");
+    throw new Exception("$errno: $errfile:$errline: $errstr" . PHP_EOL . print_r(array_reverse(debug_backtrace()), true) );
 }
 set_error_handler("fatal_error_handler");
 
@@ -53,7 +53,8 @@ function get_controller_from_request_page($page) {
     }
 
     $pages = [
-        '/index.html.php'    => 'controllers/posts.php',
+        '/index.html.php'    => 'controllers/index.php',
+        '/posts.html.php'    => 'controllers/posts.php',
         '/projects.html.php' => 'controllers/projects.php',
         '/readings.html.php' => 'controllers/readings.php',
     ];
@@ -96,7 +97,7 @@ try {
 } catch(HTTPException $e) {
     http_response_code($e->getCode());
     if($e->getPrevious()) {
-        echo $e->getPrevious()->getMessage();
+        throw $e->getPrevious();
     }
     exit(1);
 }

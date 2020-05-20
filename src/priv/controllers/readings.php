@@ -1,18 +1,19 @@
 <?php
 require_once('libs/Config.php');
 require_once('libs/Request.php');
-require_once('libs/books.php');
 require_once('libs/external/php2static/php/Module.php');
 
-return new class {
-    public $page;
-    public function execute(Request $request, Config $config) {
-        Module::setInputFolder('views/');
+require_once('page.php');
 
-        $page = new Module('base/html');
-        $page->head = new Module('base/head');
-        $page->body = new Module('base/body');
-        $page->body->content = new Module('readings');
+require_once('libs/books.php');
+
+return new class() extends page {
+    protected function applyMain(Request $request, Config $config, Module $html): void {
+        $html->head->title = 'readings';
+        $html->body->content = $this->main($request, $config);
+    }
+    public function main(Request $request, Config $config) {
+        $main = new Module('readings');
 
         $books = array();
         foreach([ // ISBN-10
@@ -25,15 +26,9 @@ return new class {
         if(!array_filter($books['0872205819']->authors, function($author) { return (bool)preg_match('/graham/i', $author); })) {
             $books['0872205819']->authors[] = "Angus C. Graham";
         }
-        $page->body->content->currentBooks = $books;
-        $page->body->content->books = [];
+        $main->currentBooks = $books;
+        $main->books = [];
 
-        try {
-            $page->process();
-        } catch(Exception $e) {
-            throw new HTTPException(404);
-        }
-
-        yield (string)$page;
+        return $main;
     }
 };
