@@ -79,7 +79,7 @@ body > footer {
 /* styling */
 
 html {
-    font-size: 14px;
+    font-size: 1.7em;
     font-family: monospace;
 }
 
